@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>beatpad</title>
+</head>
+
+<body>
+    <script>
+        const body = document.querySelector('body');
+
+        body.style.display = "flex";
+        body.style.flexWrap = "wrap";
+        body.style.justifyContent = "center";
+        body.style.alignItems = "center";
+        body.style.margin = "0";
+
+        const createpads = () => {
+            for(i = 0; i <= 16; i++){
+            const pad = document.createElement("div");
+            pad.style.width = "300px";
+            pad.style.height = "300px";
+            pad.style.margin = "10px";
+            pad.style.backgroundColor = "green";
+            pad.style.innerText = i+1;
+
+            pad.onmouseover = () => {
+                pad.style.backgroundColor = "red";
+            }
+
+            pad.onclick = () => {
+                pad.style.backgroundColor = "blue";
+                setTimeout(() =>{
+                    pad.style.backgroundColor = "green";
+                }, 1000);
+                }
+                
+                body.appendChild(pad);
+            }
+
+            
+
+        }
+        
+
+        createpads();
+        
+    </script>>
+</body>
+
+</html>

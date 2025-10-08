@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RPS-Game</title>
+    <style>
+        body {
+            display: flex;
+
+            margin: 0;
+            padding: 0;
+            justify-content: center;
+            background-color: rgb(29, 29, 29);
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        button {
+            padding: 2px;
+            font-weight: 500;
+        }
+
+        .main {
+            width: 60vw;
+            height: 70vh;
+            position: absolute;
+            background-color: rgb(227, 83, 0);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+
+        }
+
+        .main .input {
+            position: relative;
+            display: flex;
+            width: fit-content;
+            height: 80px;
+            padding: 0;
+            align-items: center;
+            background-color: rgb(202, 41, 41);
+            z-index: 1;
+            border-radius: 10px;
+
+
+        }
+
+        .main .input button {
+            width: fit-content;
+            height: 50px;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 8px;
+            border: none;
+            box-shadow: none;
+            transition: 0.2s;
+
+        }
+
+        .main .input button:hover {
+            color: white;
+            background-color: rgb(59, 58, 58);
+        }
+
+
+        .main .process {
+            position: relative;
+            opacity: 0.9;
+            color: rgb(255, 255, 255);
+            background-color: rgb(190, 122, 32);
+            padding: 20px;
+            padding-bottom: 0%;
+            z-index: 0;
+            top: -5%;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+
+        }
+
+        .main .outputfield {
+            position: relative;
+            width: 100%;
+            height: fit-content;
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+            line-height: 1.5;
+            justify-content: center;
+            color: rgb(255, 255, 255);
+            background-color: rgb(107, 84, 55);
+            z-index: 0;
+            top: 15%;
+            
+        }
+        .main .outputfield p {
+            margin: 0;
+            padding: 2px;
+            padding-left:10px;
+            font-size: 1.2em;
+        }
+        .main .output {
+            background-color: white;
+            padding: 20px;
+            padding-top: 0;
+            padding-bottom: 0;
+            border: 0;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+
+        <div class="input">
+            <button id="paper" onclick="this.innerHTML = 'Throwing paper'">Paper</button>
+            <button id="rock" onclick="this.innerHTML = 'Throwing rock'">Rock</button>
+            <button id="scissors" onclick="this.innerHTML = 'Throwing scissors'">Scissors</button>
+        </div>
+
+        <div class="process">
+            <p>Pick a move</p>
+        </div>
+
+        <div class="outputfield">
+            <p>The computer chooses <span id="output">X</span></p>
+        </div>
+    </div>
+
+    <script>
+        let input = document.querySelector(".input");
+        let main = document.querySelector(".main");
+        let outputfield = document.querySelector(".outputfield");
+
+        const paperbtn = input.firstElementChild;
+        const rockbtn = paperbtn.nextElementSibling;
+        const scissorbtn = input.lastElementChild;
+
+        let cc = "";
+        let result = "";
+        paperbtn.style.backgroundColor = "";
+        let pc;
+
+        const winner = (mod, msg) => {
+            mod.style.backgroundColor = "green";
+            let p = document.createElement("p");
+            p.innerText = "You win!";
+            msg.appendChild(p);
+
+        }
+
+        const loser = function (mod, msg) {
+            mod.style.backgroundColor = "red";
+            let p = document.createElement("p");
+            p.innerText = "You lose!";
+            msg.appendChild(p);
+        }
+
+        const tie = (mod, msg) => {
+            mod.style.backgroundColor = "grey";
+            let p = document.createElement("p");
+            p.innerText = "It's a tie!";
+            msg.appendChild(p);
+        }
+
+        const checker = (result) => {
+            try {
+                if (result == "Player wins") {
+                    winner(main, outputfield);
+                } else if (result == "Computer wins") {
+                    loser(main, outputfield);
+                } else {
+                    tie(main, outputfield);
+                }
+
+            } catch (e) {
+                console.log(e instanceof Error);
+                console.log(e.message);
+                console.log(e.stack);
+            }
+
+        }
+        const playgame = (pc) => {
+            try {
+                let shuffler = Math.floor(Math.random() * 3) + 1;
+                cc = shuffler == 1 ? "r"
+                    : shuffler == 2 ? "p"
+                        : "s";
+
+                enginechoice = cc == "r" ? "rock"
+                    : cc == "p" ? "paper"
+                        : "scissors";
+                if (pc !== cc) {
+                    if (
+                        (pc == "r" && cc == "s") ||
+                        (pc == "p" && cc == "r") ||
+                        (pc == "s" && cc == "p")
+                    ) {
+                        result = "Player wins";
+                        return result;
+                    }
+                    else {
+                        result = "Computer wins";
+                        return result;
+                    }
+
+                } else {
+                    result = "It's a tie";
+
+                }
+
+                return enginechoice;
+            } catch (e) {
+                console.log(e instanceof Error);
+                console.log(e.message);
+                console.log(e.name);
+                console.log(e.stack);
+            }
+        }
+
+
+        paperbtn.addEventListener("click", () => {
+            paperbtn.style.backgroundColor = "rgb(59, 58, 58)";
+            document.querySelector(".process p").innerText = "Processing...";
+            pc = "p";
+            playgame(pc);
+            document.querySelector("#output").innerText = enginechoice;
+            checker(result);
+
+        });
+
+        rockbtn.addEventListener("click", () => {
+            paperbtn.style.backgroundColor = "rgb(59, 58, 58)";
+            document.querySelector(".process p").innerText = "Processing...";
+            pc = "r";
+            playgame(pc);
+            document.querySelector("#output").innerText = enginechoice;
+            checker(result);
+
+        });
+
+        scissorbtn.addEventListener("click", () => {
+            paperbtn.style.backgroundColor = "rgb(59, 58, 58)";
+            document.querySelector(".process p").innerText = "Processing...";
+            pc = "s";
+            playgame(pc);
+            document.querySelector("#output").innerText = enginechoice;
+            checker(result);
+
+
+        });
+
+
+    </script>
+</body>
+
+</html>
