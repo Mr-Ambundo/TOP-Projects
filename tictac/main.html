@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game</title>
+
+    <style>
+        body {
+            display: flex; 
+            margin: 2px;
+            justify-content: center;
+            align-items: center;
+            height: auto;
+            width: auto;
+            background-color: #d50000;
+        }
+
+        .main {
+            position: absolute;
+            background-color: #ffffff;
+            padding: 10px;
+            top: 15vw;
+            border-radius: 10px;
+        }
+
+        #main {
+            display: grid;
+            grid-template-columns: repeat(3, 15vw);
+            grid-template-rows: repeat(3, 15vw);
+            gap: 1vw;
+        }
+
+        .tile {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 48px;
+            font-weight: bold;
+            color: #000000;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            border: 2px solid #000000;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .tile:hover {
+            background-color: #ddd500;
+        }
+
+        .btn {
+            position: relative;
+            top: 5px;
+            width: 50%;
+            right: -25%;
+            padding: 10px 20px;
+            background-color: #060bff;
+            border: 2px solid #000000;
+            border-radius: 5px;
+            cursor: pointer;
+            user-select: none;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background-color: #0f9e04;
+        }
+
+
+    </style>
+</head>
+<body>
+   
+    <div class="main">
+        <section id="main">
+        <div class="tile" id="tile1"></div>
+        <div class="tile" id="tile2"></div>
+        <div class="tile" id="tile3"></div>
+        <div class="tile" id="tile4"></div>
+        <div class="tile" id="tile5"></div>
+        <div class="tile" id="tile6"></div>
+        <div class="tile" id="tile7"></div>
+        <div class="tile" id="tile8"></div>
+        <div class="tile" id="tile9"></div>
+        </section>
+        <button class="btn">Restart</button>
+    </div>
+    <script src="index.js"></script>
+</body>
+</html>
